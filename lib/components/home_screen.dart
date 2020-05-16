@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sugarmonitoring/api_client/CgmApiClient.dart';
 import 'package:sugarmonitoring/components/begin_button.dart';
 import 'package:sugarmonitoring/components/custom_appbar.dart';
 import 'package:sugarmonitoring/components/graph_itself_lol.dart';
@@ -20,14 +21,16 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   bool _isFreshStart;
   List<SugarGraphEntry> _history;
+  CgmApiClient _cgmApiClient;
 
   final Random _random = Random();
 
   @override
   void initState() {
     super.initState();
+    _cgmApiClient = CgmApiClient();
     _isFreshStart = true;
-    _history = List();
+    _history = _cgmApiClient.getSugars();
   }
 
   @override
@@ -41,6 +44,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: body,
       ),
       floatingActionButton: !_isFreshStart ? _unicornDialer() : null,
+      drawer: Drawer(),
     );
   }
 

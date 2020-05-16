@@ -7,14 +7,6 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
 
   NonzeroBoundMeasureAxis(this.seriesList, {this.animate});
 
-  factory NonzeroBoundMeasureAxis.withSampleData() {
-    return new NonzeroBoundMeasureAxis(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
   factory NonzeroBoundMeasureAxis.withData(List<SugarGraphEntry> data) {
     return new NonzeroBoundMeasureAxis(
       _convertDataToSeries(data),
@@ -43,7 +35,7 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
       )
     ];
   }
-  /// Create one series with sample hard coded data.
+
   static List<charts.Series<SugarGraphEntry, DateTime>> _createSampleData() {
     final data = [
       new SugarGraphEntry(new DateTime(2017, 9, 25), 106),

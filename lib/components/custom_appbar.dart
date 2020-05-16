@@ -10,8 +10,13 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Icon(
-        Icons.menu,
+      leading: IconButton(
+        icon: Icon(
+          Icons.menu,
+        ),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       actions: <Widget>[
         AppBarIcon(iconData: Icons.notifications, padding: 10,),
