@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   final double height;
+  final String title;
 
-  const CustomAppbar({Key key, this.height}) : super(key: key);
+  const CustomAppbar({Key key, this.height, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      title: Text(
+        title != null ? title : "Sugar Monitoring"
+      ),
       leading: IconButton(
         icon: Icon(
           Icons.menu,

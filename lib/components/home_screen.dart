@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sugarmonitoring/api_client/CgmApiClient.dart';
+import 'package:sugarmonitoring/components/awesome_drawer.dart';
 import 'package:sugarmonitoring/components/begin_button.dart';
 import 'package:sugarmonitoring/components/custom_appbar.dart';
 import 'package:sugarmonitoring/components/graph_itself_lol.dart';
@@ -44,7 +45,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: body,
       ),
       floatingActionButton: !_isFreshStart ? _unicornDialer() : null,
-      drawer: Drawer(),
+      drawer: AwesomeDrawer(lastMeasurement: _history.last,),
     );
   }
 
@@ -76,11 +77,11 @@ class HomeScreenState extends State<HomeScreen> {
 
   _scanCallback() {
     if (_isFreshStart) _isFreshStart = false;
-    //todo get data from nfc
+    //todo mock - get data from nfc
     setState(() {
       _history.add(SugarGraphEntry(
         DateTime.now(),
-          _getRandomNumber(200, 300)
+          _getRandomNumber(60, 200)
       ));
     });
   }

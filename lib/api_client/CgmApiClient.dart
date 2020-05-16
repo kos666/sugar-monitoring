@@ -11,12 +11,12 @@ class CgmApiClient {
 
   //todo mocked data - replace with api call
   List<SugarGraphEntry> getSugars() {
-    var startTime = DateTime.now().subtract(Duration(minutes: 16));
+    var startTime = DateTime.now().subtract(Duration(minutes: 5));
     var step;
     List<SugarGraphEntry> data = List();
 
-    for( var i = 0 ; i < 5; i++ ) {
-      step = _getRandomNumber(2, 3);
+    for( var i = 0 ; i < 2; i++ ) {
+      step = _getRandomNumber(1, 2);
       startTime = startTime.add(Duration(minutes: step));
       data.add(new SugarGraphEntry(startTime, _getRandomNumber(60, 200)));
     }
