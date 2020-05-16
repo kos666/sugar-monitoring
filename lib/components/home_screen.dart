@@ -7,6 +7,7 @@ import 'package:sugarmonitoring/components/custom_appbar.dart';
 import 'package:sugarmonitoring/components/graph_itself_lol.dart';
 import 'package:sugarmonitoring/components/nfc_screen.dart';
 import 'package:sugarmonitoring/components/sugar_graph.dart';
+import 'package:unicorndial/unicorndial.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,6 +21,8 @@ class HomeScreenState extends State<HomeScreen> {
   bool _isFreshStart;
   List<SugarGraphEntry> _history;
 
+  final Random _random = Random();
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +32,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var body = _isFreshStart ? BeginButton(scanCallback: () {toggleIsFreshStart();}) : SugarGraph(history: _history,);
+    var body = _isFreshStart ? BeginButton(scanCallback: toggleIsFreshStart) : SugarGraph(history: _history,);
     return Scaffold(
       appBar: CustomAppbar(
         height: 56,
@@ -37,7 +40,7 @@ class HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: body,
       ),
-      floatingActionButton: !_isFreshStart ? _actionButton() : null,
+      floatingActionButton: !_isFreshStart ? _unicornDialer() : null,
     );
   }
 
@@ -45,13 +48,50 @@ class HomeScreenState extends State<HomeScreen> {
     _isFreshStart = !_isFreshStart;
   }
 
-  _actionButton() {
-    return FloatingActionButton(
-      onPressed: () {
-        _showDialog();
-      },
-      child: Icon(
+  _unicornDialer() {
+    return UnicornDialer(
+      orientation: UnicornOrientation.VERTICAL,
+      parentButton: Icon(
           Icons.add
+      ),
+      parentButtonBackground: Colors.blue,
+      childButtons: _getEntryButtons(),
+    );
+  }
+
+  List<UnicornButton> _getEntryButtons() {
+    List<UnicornButton> buttons = [];
+
+    buttons.add(_getButton(_showDialog, Icons.keyboard, "manualButton"));
+    buttons.add(_getButton(() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => NfcScreen(scanCallback: _scanCallback,)));
+    }, Icons.nfc, "nfcButton"));
+
+    return buttons;
+  }
+
+  _scanCallback() {
+    if (_isFreshStart) _isFreshStart = false;
+    //todo get data from nfc
+    setState(() {
+      _history.add(SugarGraphEntry(
+        DateTime.now(),
+          _getRandomNumber(200, 300)
+      ));
+    });
+  }
+
+  int _getRandomNumber(int min, int max) => min + _random.nextInt(max - min);
+
+  UnicornButton _getButton(Function callback, IconData iconData, String heroTag) {
+    return UnicornButton(
+      currentButton: FloatingActionButton(
+        heroTag: heroTag,
+        mini: true,
+        onPressed: callback,
+        child: Icon(
+            iconData
+        ),
       ),
     );
   }
