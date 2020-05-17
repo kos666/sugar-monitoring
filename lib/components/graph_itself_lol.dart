@@ -29,7 +29,7 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
         ],
         domainAxis: charts.DateTimeAxisSpec(
           viewport: charts.DateTimeExtents(
-              start: DateTime.now().subtract(Duration(minutes: 30)),
+              start: DateTime.now().subtract(Duration(minutes: 15)),
               end: DateTime.now()
           ),
         ));
