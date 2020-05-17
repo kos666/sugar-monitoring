@@ -10,19 +10,23 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
   factory NonzeroBoundMeasureAxis.withData(List<SugarGraphEntry> data) {
     return new NonzeroBoundMeasureAxis(
       _convertDataToSeries(data),
-      animate: false,
+      animate: true,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return new charts.TimeSeriesChart(seriesList,
-        animate: animate,
-        // Provide a tickProviderSpec which does NOT require that zero is
-        // included.
-        primaryMeasureAxis: new charts.NumericAxisSpec(
-            tickProviderSpec:
-            new charts.BasicNumericTickProviderSpec(zeroBound: false)));
+      animate: animate,
+      // Provide a tickProviderSpec which does NOT require that zero is
+      // included.
+      primaryMeasureAxis: new charts.NumericAxisSpec(
+          tickProviderSpec:
+          new charts.BasicNumericTickProviderSpec(zeroBound: false)),
+      behaviors: [
+        charts.SlidingViewport(),
+        charts.PanAndZoomBehavior()
+      ],);
   }
 
   static List<charts.Series<SugarGraphEntry, DateTime>> _convertDataToSeries(List<SugarGraphEntry> data) {
