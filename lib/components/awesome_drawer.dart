@@ -55,12 +55,6 @@ class AwesomeDrawer extends StatelessWidget {
             color: Colors.blueGrey,
           ),
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SugarGraph(
-                          history: history,
-                        )));
             Navigator.pop(context);
           },
         ),
@@ -73,7 +67,6 @@ class AwesomeDrawer extends StatelessWidget {
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => WatcherScreen()));
-            Navigator.pop(context);
           },
         ),
         const Divider(
