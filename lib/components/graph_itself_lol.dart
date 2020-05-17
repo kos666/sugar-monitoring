@@ -17,16 +17,22 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new charts.TimeSeriesChart(seriesList,
-      animate: animate,
-      // Provide a tickProviderSpec which does NOT require that zero is
-      // included.
-      primaryMeasureAxis: new charts.NumericAxisSpec(
-          tickProviderSpec:
-          new charts.BasicNumericTickProviderSpec(zeroBound: false)),
-      behaviors: [
-        charts.SlidingViewport(),
-        charts.PanAndZoomBehavior()
-      ],);
+        animate: animate,
+        // Provide a tickProviderSpec which does NOT require that zero is
+        // included.
+        primaryMeasureAxis: new charts.NumericAxisSpec(
+            tickProviderSpec:
+            new charts.BasicNumericTickProviderSpec(zeroBound: false)),
+        behaviors: [
+          charts.SlidingViewport(),
+          charts.PanAndZoomBehavior()
+        ],
+        domainAxis: charts.DateTimeAxisSpec(
+          viewport: charts.DateTimeExtents(
+              start: DateTime.now().subtract(Duration(minutes: 30)),
+              end: DateTime.now()
+          ),
+        ));
   }
 
   static List<charts.Series<SugarGraphEntry, DateTime>> _convertDataToSeries(List<SugarGraphEntry> data) {
