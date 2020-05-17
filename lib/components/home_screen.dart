@@ -45,7 +45,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: body,
       ),
       floatingActionButton: !_isFreshStart ? _unicornDialer() : null,
-      drawer: AwesomeDrawer(lastMeasurement: _history.last,),
+      drawer: AwesomeDrawer(lastMeasurement: _history.last, history: _history,),
     );
   }
 
@@ -81,7 +81,7 @@ class HomeScreenState extends State<HomeScreen> {
     setState(() {
       _history.add(SugarGraphEntry(
         DateTime.now(),
-          _getRandomNumber(60, 200)
+         _history.last.sugarLevel + 13
       ));
     });
   }

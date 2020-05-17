@@ -16,8 +16,8 @@ class WatcherScreen extends StatelessWidget {
       drawer: AwesomeDrawer(),
       body: ListView(
         children: <Widget>[
-          Subscription(title: "Maria Hee",),
-          Subscription(title: "Maria Ha",),
+          Subscription(title: "Mother",),
+          Subscription(title: "Doc Alex",),
         ],
       ),
     );
